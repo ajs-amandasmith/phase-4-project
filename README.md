@@ -18,6 +18,8 @@ This app uses:
 * Rails version 6.1.3.2
 * postgresql version 1.1
 * Puma version 5.0
+* React version 18.2.0
+* bootstrap version 5.2.3
 
 
 This README would normally document whatever steps are necessary to get the

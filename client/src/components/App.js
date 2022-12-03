@@ -3,9 +3,11 @@ import '../App.css';
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
+import Login from "./Login";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     fetch("/hello")
@@ -21,7 +23,7 @@ function App() {
             {/* <h1>Test Route</h1> */}
           </Route>
           <Route path="/">
-            
+            <Login onLogin={setUser} />
             {/* <h1>Page Count: {count}</h1> */}
           </Route>
         </Switch>

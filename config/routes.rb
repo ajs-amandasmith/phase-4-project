@@ -5,9 +5,14 @@ Rails.application.routes.draw do
   # root "articles#index"
 
    # route to test your configuration
-   get '/hello', to: 'application#hello_world'
+  resources :users, only: [:index, :create]
 
-   get '*patch',
-        to: 'fallback#index',
-        constraints: ->(req) { !req.xhr? && req.format.html? }
+  post "/signup", to: "users#create"
+  post "/login", to: "sessions#create"
+
+  get '/hello', to: 'application#hello_world'
+
+  get '*patch',
+      to: 'fallback#index',
+      constraints: ->(req) { !req.xhr? && req.format.html? }
 end

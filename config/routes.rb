@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
 
    # route to test your configuration
-  resources :users, only: [:index, :create]
+  resources :users, only: [:index, :create, :destroy]
 
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"

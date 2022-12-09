@@ -1,19 +1,17 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./Home";
+import Login from"./Login";
+import "react-bootstrap/dist/react-bootstrap.min.js";
+
 
 function SiteContainer() {
   return (
     <div>
-      <BrowserRouter>
-        <div>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-          </Switch>
-        </div>
-      </BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={Login} />
+      </Switch>
     </div>
   )
 }

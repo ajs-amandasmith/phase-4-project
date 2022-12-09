@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   # root "articles#index"
 
    # route to test your configuration
-  resources :users, only: [:index, :create, :destroy]
+  resources :users, only: [:index, :show, :destroy]
 
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"
+  get "/me", to: "users#show"
 
   get '*patch',
       to: 'fallback#index',

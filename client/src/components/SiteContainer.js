@@ -1,7 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Home from "./Home";
-import Login from"./Login";
+import Login from "./Login";
+import SignupForm from "./SignupForm";
 import "react-bootstrap/dist/react-bootstrap.min.js";
 
 
@@ -11,6 +12,7 @@ function SiteContainer() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignupForm} />
       </Switch>
     </div>
   )

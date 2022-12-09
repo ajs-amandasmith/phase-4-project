@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-function Login({onLogin}) {
+function Login( {onLogin} ) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -48,6 +49,8 @@ function Login({onLogin}) {
       {errors.map(err => (
         <p key={err}>{err}</p>
       ))}
+      <br></br>
+      <Link to="/signup">Or Sign Up!</Link>
     </form>
   )
 }

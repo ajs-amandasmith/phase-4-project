@@ -6,11 +6,11 @@ import SignupForm from "./SignupForm";
 import "react-bootstrap/dist/react-bootstrap.min.js";
 
 
-function SiteContainer() {
+function SiteContainer({ onLogin }) {
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Home}  />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignupForm} />
       </Switch>

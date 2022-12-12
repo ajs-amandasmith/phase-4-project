@@ -5,7 +5,8 @@ import NavBar from "./NavBar";
 import SiteContainer from "./SiteContainer";
 
 function App() {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(null);
+  console.log("user", user);
 
   useEffect(() => {
     fetch("/me").then((r) => {
@@ -18,7 +19,7 @@ function App() {
   return (
     <div>
       <NavBar user={user} />
-      <SiteContainer onLogin={setUser} />
+      <SiteContainer onLogin={setUser} user={user} />
     </div>
     // <BrowserRouter>
     

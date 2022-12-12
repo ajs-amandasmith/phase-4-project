@@ -12,7 +12,10 @@ function NavBar({ user }) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link as={Link} to="/" >Home</Nav.Link>
-            <Nav.Link as={Link} to="/login">{user ? user.nickname : "Login"}</Nav.Link>
+            {user ? <Nav.Link as={Link} to="/logout">Logout</Nav.Link> :
+              <Nav.Link as={Link} to="/login">Login</Nav.Link>
+            }
+            
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 
-function NavBar({ user }) {
+function NavBar({ user, setUser }) {
+  const [toLogin, setToLogin] = useState(false);
+
+  if (toLogin) {
+    return <Redirect to="/login" />
+  }
+
+  function handleLogoutClick() {
+    fetch("/logout", { method: "DELETE" }).then((r) => {
+      if (r.ok) {
+        setUser(null);
+        setToLogin(true);
+      }
+    });
+  }
+
   return (
     <div>
       <Navbar bg="dark" expand="lg" variant="dark">
@@ -12,7 +27,7 @@ function NavBar({ user }) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link as={Link} to="/" >Home</Nav.Link>
-            {user ? <Nav.Link as={Link} to="/logout">Logout</Nav.Link> :
+            {user ? <Nav.Link as={Link} to="/login" onClick={handleLogoutClick} >Logout</Nav.Link> :
               <Nav.Link as={Link} to="/login">Login</Nav.Link>
             }
             

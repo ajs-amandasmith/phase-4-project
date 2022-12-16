@@ -7,7 +7,6 @@ import SignupForm from "./SignupForm";
 
 
 function SiteContainer({ onLogin, user }) {
-  console.log('conatiner', onLogin)
   return (
     <div className="container">
       <Switch>

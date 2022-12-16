@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 
 function SignupForm({ onLogin }) {
   const [username, setUsername] = useState("");
@@ -8,6 +9,12 @@ function SignupForm({ onLogin }) {
   const [imageUrl, setImageUrl] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [toHome, setToHome] = useState(false);
+
+  if (toHome) {
+    return <Redirect to='/'/>
+  }
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -29,16 +36,13 @@ function SignupForm({ onLogin }) {
       setIsLoading(false);
       if (r.ok) {
         r.json().then((user) => {
-          onLogin(user)
-          setUsername("");
-          setPassword("");
-          setPasswordConfirmation("");
-          setNickname("");
-          setImageUrl("");
-          setErrors([]);
+          onLogin(user);
+          setToHome(true);
         });
       } else {
-        r.json().then(err => setErrors(err.errrors));
+        r.json().then(err => {
+          setErrors(err.errors)
+        });
       }
     });
   }

@@ -7,6 +7,8 @@ function Login({ onLogin }) {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  console.log("login", onLogin)
+
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);

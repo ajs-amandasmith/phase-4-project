@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
    # route to test your configuration
   resources :users, only: [:index, :show, :destroy]
+  resources :fanarts
 
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"

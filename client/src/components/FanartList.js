@@ -1,7 +1,6 @@
 import React from "react";
 
 function FanartList({ listFanart }) {
-  console.log('list', listFanart);
   const displayFanart = listFanart.map(art => (
     <div>
       <h1>Title: {art.title}</h1>

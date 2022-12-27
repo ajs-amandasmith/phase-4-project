@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import Login from "./Login";
@@ -8,6 +8,16 @@ import FanartList from "./FanartList";
 
 
 function SiteContainer({ onLogin, user }) {
+  const [allFanart, setAllFanart] = useState(null);
+
+  useEffect(() => {
+    fetch("/fanarts")
+      .then(r => r.json())
+      .then(art => setAllFanart(art));
+  }, [])
+
+  // console.log('fanart', allFanart);
+
   return (
     <div className="container">
       <Switch>
@@ -21,7 +31,7 @@ function SiteContainer({ onLogin, user }) {
           <SignupForm onLogin={onLogin} user={user} />
         </Route>
         <Route path="/fanart">
-          <FanartList />
+          <FanartList listFanart={allFanart} />
         </Route>
         <Route path="/my-fanart">
           <FanartList />

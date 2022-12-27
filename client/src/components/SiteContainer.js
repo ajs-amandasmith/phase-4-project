@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import Login from "./Login";
 import SignupForm from "./SignupForm";
+import FanartList from "./FanartList";
 // import "react-bootstrap/dist/react-bootstrap.min.js";
 
 
@@ -18,6 +19,12 @@ function SiteContainer({ onLogin, user }) {
         </Route>
         <Route path="/signup">
           <SignupForm onLogin={onLogin} user={user} />
+        </Route>
+        <Route path="/fanart">
+          <FanartList />
+        </Route>
+        <Route path="/my-fanart">
+          <FanartList />
         </Route>
       </Switch>
     </div>

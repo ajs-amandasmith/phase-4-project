@@ -1,14 +1,47 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 
-function AddFanartForm() {
+function AddFanartForm({ updateUserFanart }) {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
   const [series, setSeries] = useState("");
+  const [errors, setErrors] = useState([]);
+  const [toFanart, setToFanart] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  if(toFanart) {
+    return <Redirect to="/my-fanart" />
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(e)
+    setErrors([]);
+    setIsLoading(true);
+    fetch("/fanarts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        title,
+        image,
+        description,
+        series
+      })
+    }).then( r => {
+      setIsLoading(false);
+      if(r.ok) {
+        r.json().then(fanart => {
+          updateUserFanart(fanart)
+          setToFanart(true)
+        })
+      } else {
+        r.json().then(err => {
+          setErrors(err.errors)
+        })
+      }
+    })
   }
 
   return (
@@ -46,9 +79,12 @@ function AddFanartForm() {
           onChange={e => setSeries(e.target.value)} 
         />
         <br></br>
-        <input
+        <button
           type="submit" 
-        />
+        >{isLoading ? "Loading..." : "Add Fanart"}</button>
+        {errors.map(err => (
+        <p key={err}>{err}</p>
+      ))}
       </form>
     </div>
   )

@@ -15,13 +15,21 @@ function App() {
     });
   }, [])
 
+  function updateUserFanart(fanart) {
+    const newUser = user;
+    fanart.username = newUser.username;
+    newUser.fanarts.push(fanart);
+    setUser(newUser);
+  }
+console.log(user)
   return (
     <div className="container">
       {user ? <NavBar user={user} setUser={setUser} /> : null}
       <h1>Fanart Expo</h1>
       <SiteContainer 
         onLogin={setUser} 
-        user={user} 
+        user={user}
+        updateUserFanart={updateUserFanart} 
       />
     </div>
   );

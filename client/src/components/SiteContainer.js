@@ -5,6 +5,7 @@ import Login from "./Login";
 import SignupForm from "./SignupForm";
 import FanartList from "./FanartList";
 import MyFanart from "./MyFanart";
+import AddFanartForm from "./AddFanartForm";
 // import "react-bootstrap/dist/react-bootstrap.min.js";
 
 
@@ -16,20 +17,6 @@ function SiteContainer({ onLogin, user, myFanart }) {
       .then(r => r.json())
       .then(art => setAllFanart(art));
   }, [])
-
-  // useEffect(() => {
-  //   if(user) {
-  //     fetch(`/fanarts/${user.id}`).then(r => {
-  //       if(r.ok) {
-  //         r.json().then(art => console.log(art));
-  //       }
-  //     })
-  //   }
-  // }, [user])
-
-
-  // console.log('fanart', allFanart);
-  // console.log(user.id)
 
   return (
     <div className="container">
@@ -48,6 +35,9 @@ function SiteContainer({ onLogin, user, myFanart }) {
         </Route>
         <Route path="/my-fanart">
           <MyFanart user={user} />
+        </Route>
+        <Route path="/add-fanart">
+          <AddFanartForm />
         </Route>
       </Switch>
     </div>

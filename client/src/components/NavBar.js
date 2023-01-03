@@ -32,6 +32,7 @@ function NavBar({ user, setUser }) {
             }
             <Nav.Link as={Link} to="/fanart" >Fanart</Nav.Link>
             <Nav.Link as={Link} to="/my-fanart" >My Fanart</Nav.Link>
+            <Nav.Link as={Link} to="/add-fanart" >Add Fanart</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

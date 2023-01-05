@@ -1,7 +1,7 @@
 import React from "react";
 
 function MyFanart({ user }) {
-  console.log('fanarts', user.fanarts);
+  console.log('fanarts', user);
   const displayFanart = user.fanarts.map(fanart => (
     <div key={fanart.id}>
       <h1>Title: {fanart.title}</h1>

@@ -6,6 +6,7 @@ import SiteContainer from "./SiteContainer";
 
 function App() {
   const [user, setUser] = useState(null);
+  console.log(user)
 
   useEffect(() => {
     fetch("/me").then((r) => {
@@ -16,12 +17,13 @@ function App() {
   }, [])
 
   function updateUserFanart(fanart) {
+    console.log('fanart', fanart)
     const newUser = user;
-    fanart.username = newUser.username;
+    console.log('newUser', newUser)
     newUser.fanarts.push(fanart);
     setUser(newUser);
   }
-console.log(user)
+
   return (
     <div className="container">
       {user ? <NavBar user={user} setUser={setUser} /> : null}

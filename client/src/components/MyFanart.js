@@ -1,12 +1,26 @@
 import React from "react";
+import { Link, useParams } from "react-router-dom";
 
 function MyFanart({ user }) {
-  console.log('fanarts', user);
+  const id = useParams();
+
+  function handleClick(e, fanart) {
+    // const id = useParams(fanart.id)
+    console.log('e', e)
+    console.log('id', id)
+    console.log('fanart', fanart)
+  }
+  
   const displayFanart = user.fanarts.map(fanart => (
     <div key={fanart.id}>
-      <h1>Title: {fanart.title}</h1>
+      <h1>
+        <Link to={`/my-fanart/${fanart.id}`}>
+        Title: {fanart.title}
+        </Link>
+        </h1>
       <h3>Artist: {user.username}</h3>
       <p>Series: {fanart.series}</p>
+      {/* <button onClick={e => handleClick(e, fanart)}>View</button> */}
     </div>
   ))
   return (

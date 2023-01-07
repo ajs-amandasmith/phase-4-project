@@ -6,6 +6,7 @@ import SignupForm from "./SignupForm";
 import FanartList from "./FanartList";
 import MyFanart from "./MyFanart";
 import AddFanartForm from "./AddFanartForm";
+import Fanart from "./Fanart";
 // import "react-bootstrap/dist/react-bootstrap.min.js";
 
 
@@ -30,8 +31,14 @@ function SiteContainer({ onLogin, user, updateUserFanart }) {
         <Route path="/signup">
           <SignupForm onLogin={onLogin} user={user} />
         </Route>
-        <Route path="/fanart">
+        <Route path="/fanarts/:id">
+          <Fanart />
+        </Route>
+        <Route path="/fanarts">
           <FanartList listFanart={allFanart} />
+        </Route>
+        <Route path="/my-fanart/:id">
+          <Fanart /> 
         </Route>
         <Route path="/my-fanart">
           <MyFanart user={user} />

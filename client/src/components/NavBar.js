@@ -30,7 +30,7 @@ function NavBar({ user, setUser }) {
             {user ? <Nav.Link as={Link} to="/login" onClick={handleLogoutClick} >Logout</Nav.Link> :
               <Nav.Link as={Link} to="/login">Login</Nav.Link>
             }
-            <Nav.Link as={Link} to="/fanart" >Fanart</Nav.Link>
+            <Nav.Link as={Link} to="/fanarts" >Fanart</Nav.Link>
             <Nav.Link as={Link} to="/my-fanart" >My Fanart</Nav.Link>
             <Nav.Link as={Link} to="/add-fanart" >Add Fanart</Nav.Link>
           </Nav>

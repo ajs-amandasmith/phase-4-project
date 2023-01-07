@@ -6,7 +6,6 @@ import SiteContainer from "./SiteContainer";
 
 function App() {
   const [user, setUser] = useState(null);
-  console.log(user)
 
   useEffect(() => {
     fetch("/me").then((r) => {

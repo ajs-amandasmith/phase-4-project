@@ -7,12 +7,19 @@ class FanartsController < ApplicationController
   end
 
   def show
-    render json: @current_user.fanarts
+    fanart = Fanart.find(params[:id])
+    render json: fanart, include: :user
   end
 
   def create
     fanart = @current_user.fanarts.create!(fanart_params)
     render json: fanart, status: :created
+  end
+
+  def destroy
+    fanart = Fanart.find(params[:id])
+    fanart.delete
+    head :no_content
   end
 
   private

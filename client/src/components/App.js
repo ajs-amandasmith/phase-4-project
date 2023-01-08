@@ -6,21 +6,31 @@ import SiteContainer from "./SiteContainer";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [userFanart, setUserFanart] = useState([]);
 
   useEffect(() => {
     fetch("/me").then((r) => {
       if (r.ok) {
-        r.json().then((user) => setUser(user));
+        r.json().then((user) => {
+          setUser(user)
+          setUserFanart(user.fanarts)
+        });
       }
     });
   }, [])
 
   function updateUserFanart(fanart) {
-    console.log('fanart', fanart)
     const newUser = user;
-    console.log('newUser', newUser)
     newUser.fanarts.push(fanart);
     setUser(newUser);
+  }
+
+  function removeUserFanart(fanartId) {
+    const newUser = user;
+    const newFanarts = newUser.fanarts.filter(fanart => fanart.id !== fanartId)
+    newUser.fanarts = newFanarts
+    setUser(newUser)
+    setUserFanart(newUser.fanarts)
   }
 
   return (
@@ -30,7 +40,9 @@ function App() {
       <SiteContainer 
         onLogin={setUser} 
         user={user}
+        userFanart={userFanart}
         updateUserFanart={updateUserFanart} 
+        removeUserFanart={removeUserFanart}
       />
     </div>
   );

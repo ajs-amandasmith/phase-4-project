@@ -10,7 +10,7 @@ import Fanart from "./Fanart";
 // import "react-bootstrap/dist/react-bootstrap.min.js";
 
 
-function SiteContainer({ onLogin, user, updateUserFanart }) {
+function SiteContainer({ onLogin, user, userFanart, updateUserFanart, removeUserFanart }) {
   const [allFanart, setAllFanart] = useState(null);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function SiteContainer({ onLogin, user, updateUserFanart }) {
           <Fanart /> 
         </Route>
         <Route path="/my-fanart">
-          <MyFanart user={user} />
+          <MyFanart user={user} userFanart={userFanart} removeUserFanart={removeUserFanart} />
         </Route>
         <Route path="/add-fanart">
           <AddFanartForm updateUserFanart={updateUserFanart} />

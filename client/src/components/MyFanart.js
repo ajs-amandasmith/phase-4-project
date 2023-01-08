@@ -1,17 +1,17 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-function MyFanart({ user }) {
-  const id = useParams();
+function MyFanart({ user, removeUserFanart, userFanart }) {
 
-  function handleClick(e, fanart) {
-    // const id = useParams(fanart.id)
-    console.log('e', e)
-    console.log('id', id)
-    console.log('fanart', fanart)
+  function handleDelete(id) {
+    console.log("id", id)
+    fetch(`/fanarts/${id}`, {
+      method: "DELETE"
+    })
+      .then(removeUserFanart(id))
   }
   
-  const displayFanart = user.fanarts.map(fanart => (
+  const displayFanart = userFanart.map(fanart => (
     <div key={fanart.id}>
       <h1>
         <Link to={`/my-fanart/${fanart.id}`}>
@@ -20,7 +20,7 @@ function MyFanart({ user }) {
         </h1>
       <h3>Artist: {user.username}</h3>
       <p>Series: {fanart.series}</p>
-      {/* <button onClick={e => handleClick(e, fanart)}>View</button> */}
+      <button onClick={e => handleDelete(fanart.id)}>Delete</button>
     </div>
   ))
   return (

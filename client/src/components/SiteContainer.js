@@ -19,6 +19,13 @@ function SiteContainer({ onLogin, user, userFanart, updateUserFanart, removeUser
       .then(art => setAllFanart(art));
   }, [])
 
+  function handleDeleteFanart(id) {
+    fetch(`/fanarts/${id}`, {
+      method: "DELETE"
+    })
+      .then(removeUserFanart(id))
+  }
+
   return (
     <div className="container">
       <Switch>
@@ -32,16 +39,24 @@ function SiteContainer({ onLogin, user, userFanart, updateUserFanart, removeUser
           <SignupForm onLogin={onLogin} user={user} />
         </Route>
         <Route path="/fanarts/:id">
-          <Fanart />
+          <Fanart allFanart={allFanart} />
         </Route>
         <Route path="/fanarts">
           <FanartList listFanart={allFanart} />
         </Route>
         <Route path="/my-fanart/:id">
-          <Fanart /> 
+          <Fanart 
+            user={user} 
+            userFanart={userFanart} 
+            handleDeleteFanart={handleDeleteFanart} 
+          /> 
         </Route>
         <Route path="/my-fanart">
-          <MyFanart user={user} userFanart={userFanart} removeUserFanart={removeUserFanart} />
+          <MyFanart 
+            user={user} 
+            userFanart={userFanart} 
+            handleDeleteFanart={handleDeleteFanart}
+          />
         </Route>
         <Route path="/add-fanart">
           <AddFanartForm updateUserFanart={updateUserFanart} />

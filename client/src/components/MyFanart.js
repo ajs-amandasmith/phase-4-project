@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-function MyFanart({ user, removeUserFanart, userFanart }) {
-
-  function handleDelete(id) {
-    console.log("id", id)
-    fetch(`/fanarts/${id}`, {
-      method: "DELETE"
-    })
-      .then(removeUserFanart(id))
-  }
+function MyFanart({ user, userFanart, handleDeleteFanart }) {
   
   const displayFanart = userFanart.map(fanart => (
     <div key={fanart.id}>
@@ -20,7 +12,7 @@ function MyFanart({ user, removeUserFanart, userFanart }) {
         </h1>
       <h3>Artist: {user.username}</h3>
       <p>Series: {fanart.series}</p>
-      <button onClick={e => handleDelete(fanart.id)}>Delete</button>
+      <button onClick={e => handleDeleteFanart(fanart.id)}>Delete</button>
     </div>
   ))
   return (

@@ -4,8 +4,6 @@ import { Link, useParams } from "react-router-dom";
 function FanartList({ listFanart }) {
   const params = useParams();
 
-  console.log('params', params)
-
   const displayFanart = listFanart.map(art => (
     <div key={art.id}>
       <h1>

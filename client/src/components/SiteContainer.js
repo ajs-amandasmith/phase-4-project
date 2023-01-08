@@ -7,8 +7,6 @@ import FanartList from "./FanartList";
 import MyFanart from "./MyFanart";
 import AddFanartForm from "./AddFanartForm";
 import Fanart from "./Fanart";
-// import "react-bootstrap/dist/react-bootstrap.min.js";
-
 
 function SiteContainer({ onLogin, user, userFanart, updateUserFanart, removeUserFanart }) {
   const [allFanart, setAllFanart] = useState(null);

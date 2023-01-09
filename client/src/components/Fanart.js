@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, Redirect } from "react-router-dom";
 
-function Fanart({ user, userFanart, allFanart, handleDeleteFanart }) {
+function Fanart({ user, allFanart, handleDeleteFanart }) {
   const [fanartDeleted, setFanartDeleted] = useState(false);
   const { id } = useParams();
 
@@ -9,26 +9,15 @@ function Fanart({ user, userFanart, allFanart, handleDeleteFanart }) {
     return <Redirect to="/my-fanart" />
   }
 
-  const currentFanart = () => { 
-    let fanart;
-    if(userFanart) {
-      fanart = userFanart.find(art => (art.id === parseInt(id, 10)))
-      return fanart
-    } else {
-      fanart = allFanart.find(art => art.id === parseInt(id))
-      return fanart
-    }
-  }
-
-  const showFanart = currentFanart()
+  const currentFanart = allFanart.find(art => art.id === parseInt(id, 10))
 
   return (
     <div>
-      <h3>Title: {showFanart.title}</h3>
-      <h4>Artist: {userFanart ? user.username : showFanart.user.username }</h4>
-      <img src={showFanart.image} alt={showFanart.description} width="500" ></img>
-      <p>{showFanart.description}</p>
-      {userFanart ? <button onClick={e => {
+      <h3>Title: {currentFanart.title}</h3>
+      <h4>Artist: {currentFanart.user.username}</h4>
+      <img src={currentFanart.image} alt={currentFanart.description} width="500" ></img>
+      <p>{currentFanart.description}</p>
+      {currentFanart.user_id === user.id ? <button onClick={e => {
         handleDeleteFanart(parseInt(id)) 
         setFanartDeleted(true)}
       }>Delete Image</button> : null}

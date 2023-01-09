@@ -13,6 +13,7 @@ function FanartList({ listFanart }) {
       </h1>
       <h3>Artist: {art.user.username}</h3>
       <p>Series: {art.series}</p>
+      <p>Comments: {art.comments.length}</p>
     </div>
     
   ))

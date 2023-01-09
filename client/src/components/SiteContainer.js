@@ -8,7 +8,7 @@ import MyFanart from "./MyFanart";
 import AddFanartForm from "./AddFanartForm";
 import Fanart from "./Fanart";
 
-function SiteContainer({ onLogin, user, userFanart, updateUserFanart, removeUserFanart }) {
+function SiteContainer({ onLogin, user, myFanartList, updateUserFanart, removeUserFanart }) {
   const [allFanart, setAllFanart] = useState(null);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function SiteContainer({ onLogin, user, userFanart, updateUserFanart, removeUser
           <SignupForm onLogin={onLogin} user={user} />
         </Route>
         <Route path="/fanarts/:id">
-          <Fanart allFanart={allFanart} />
+          <Fanart allFanart={allFanart} myFanartList={myFanartList} user={user} />
         </Route>
         <Route path="/fanarts">
           <FanartList listFanart={allFanart} />
@@ -45,14 +45,15 @@ function SiteContainer({ onLogin, user, userFanart, updateUserFanart, removeUser
         <Route path="/my-fanart/:id">
           <Fanart 
             user={user} 
-            userFanart={userFanart} 
-            handleDeleteFanart={handleDeleteFanart} 
+            allFanart={allFanart}
+            handleDeleteFanart={handleDeleteFanart}
+            myFanartList={myFanartList} 
           /> 
         </Route>
         <Route path="/my-fanart">
           <MyFanart 
             user={user} 
-            userFanart={userFanart} 
+            allFanart={allFanart}
             handleDeleteFanart={handleDeleteFanart}
           />
         </Route>

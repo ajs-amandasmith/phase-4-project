@@ -7,6 +7,7 @@ import SiteContainer from "./SiteContainer";
 function App() {
   const [user, setUser] = useState(null);
   const [userFanart, setUserFanart] = useState([]);
+  const [myFanartList, setMyFanartList] = useState(false);
 
   useEffect(() => {
     fetch("/me").then((r) => {
@@ -38,7 +39,7 @@ function App() {
 
   return (
     <div className="container">
-      {user ? <NavBar user={user} setUser={setUser} /> : null}
+      {user ? <NavBar user={user} setUser={setUser} setMyFanartList={setMyFanartList} /> : null}
       <h1>Fanart Expo</h1>
       <SiteContainer 
         onLogin={setUser} 
@@ -46,6 +47,7 @@ function App() {
         userFanart={userFanart}
         updateUserFanart={updateUserFanart} 
         removeUserFanart={removeUserFanart}
+        myFanartList={myFanartList}
       />
     </div>
   );

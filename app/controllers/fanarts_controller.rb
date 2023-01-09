@@ -2,13 +2,15 @@ class FanartsController < ApplicationController
   # skip_before_action :authorize
 
   def index
-    render json: Fanart.all, include: [ :user => { :except => [:password_digest, :created_at, :updated_at] } , 
-                                        :comments => { :include => { :user => { :except => :password_digest } } } ]
+    render json: Fanart.all, include: [ :user => { :except => [:password_digest, :created_at, :updated_at] }, 
+                                        :comments => { :include => { :user => { :except => [:password_digest, :created_at, :updated_at] } } } ]
   end
 
   def show
     fanart = Fanart.find(params[:id])
-    render json: fanart, include: :user
+    render json: fanart, include: [ :user => { :except => [:password_digest, :created_at, :updated_at] },
+                                    :comments => { :include => { :user => { :except => [:password_digest, :created_at, :updated_at] }
+                                    } } ]
   end
 
   def create

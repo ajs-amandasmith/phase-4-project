@@ -12,8 +12,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    render json: @current_user, include: :fanarts
+    render json: @current_user, include: [ :fanarts ]
   end
+
+  # render json: fanart, include: [ :user => { :except => [:password_digest, :created_at, :updated_at] },
+  # :comments => { :include => { :user => { :except => [:password_digest, :created_at, :updated_at] }
+  # } } ]
 
   def destroy
     user = User.find(params[:id])

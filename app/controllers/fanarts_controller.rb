@@ -1,9 +1,9 @@
 class FanartsController < ApplicationController
   # skip_before_action :authorize
-  # self.primary_key = @current_user
 
   def index
-    render json: Fanart.all, include: :user
+    render json: Fanart.all, include: [ :user => { :except => [:password_digest, :created_at, :updated_at] } , 
+                                        :comments => { :include => { :user => { :except => :password_digest } } } ]
   end
 
   def show

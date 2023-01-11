@@ -3,11 +3,51 @@ import { useParams, Redirect } from "react-router-dom";
 
 function Fanart({ user, allFanart, handleDeleteFanart }) {
   const [fanartDeleted, setFanartDeleted] = useState(false);
+  const [addComment, setAddComment] = useState(false);
+  const [comment, setComment] = useState("");
+  const [errors, setErrors] = useState([]);
   const { id } = useParams();
-  const currentFanart = allFanart.find(art => art.id === parseInt(id, 10))
+  const [currentFanart, setCurrentFanart] = useState(allFanart.find(art => art.id === parseInt(id, 10)))
 
   if (fanartDeleted) {
     return <Redirect to="/my-fanart" />
+  }
+
+  function handleAddComment() {
+    setAddComment(!addComment);
+    setErrors([]);
+  }
+
+  function handleCommentSubmit(e) {
+    e.preventDefault();
+    fetch("/comments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        comment: comment,
+        user_id: user.id,
+        fanart_id: currentFanart.id
+      })
+    })
+      .then(r => {
+        if(r.ok) {
+          r.json().then(comment => {
+            setComment("");
+            updateComments(comment);
+          })
+        } else {
+          r.json().then(err => setErrors(err.errors));
+        }
+      })
+    setAddComment(false);
+  }
+
+  function updateComments(comment) {
+    const newFanart = currentFanart;
+    newFanart.comments.push(comment);
+    setCurrentFanart(newFanart);
   }
 
   return (
@@ -24,11 +64,30 @@ function Fanart({ user, allFanart, handleDeleteFanart }) {
       {currentFanart.comments.length === 0 ? <p>No Comments!</p> : 
       <ul>
         {currentFanart.comments.map(function(comment){
-          return (<p key={comment.id}>{comment.comment}<br></br>Commented By: {comment.user.username}</p>)
+          return (
+            <div>
+              <p key={comment.id}>{comment.comment}</p><br></br>
+              <p>Commented By: {comment.user.username}</p>
+              {comment.user_id === user.id ? <button>Edit Comment</button> : null}
+              {comment.user_id === user.id ? <button>Delete Comment</button> : null}
+            </div>
+          )
         })}
       </ul>
       }
-      <button>Add a comment?</button>
+      {addComment ? null : <button onClick={handleAddComment}>Add a comment?</button>}
+      {addComment ? 
+        <form onSubmit={e => handleCommentSubmit(e)}>
+          <label htmlFor="comment">Add Your Comment: </label><br></br>
+          <input type="text" id="comment" value={comment} onChange={e => setComment(e.target.value)}></input>
+          <input type="submit"></input>
+          <button onClick={handleAddComment}>Cancel</button>
+        </form> : 
+        null
+      }
+       {errors.map(err => (
+        <p key={err}>{err}</p>
+      ))}
       </div>
     </div>
   )

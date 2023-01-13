@@ -1,8 +1,7 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function FanartList({ listFanart }) {
-  const params = useParams();
 
   const displayFanart = listFanart.map(art => (
     <div key={art.id}>

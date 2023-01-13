@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Redirect } from "react-router-dom";
+import DeleteComment from "./DeleteComment";
 
-function Fanart({ user, allFanart, handleDeleteFanart }) {
+function Fanart({ user, allFanart, handleDeleteFanart, handleCurrentFanart, currentFanart, setCurrentFanart }) {
   const [fanartDeleted, setFanartDeleted] = useState(false);
   const [addComment, setAddComment] = useState(false);
+  const [removedComment, setRemovedComment] = useState(false);
   const [comment, setComment] = useState("");
   const [errors, setErrors] = useState([]);
   const { id } = useParams();
-  const [currentFanart, setCurrentFanart] = useState(allFanart.find(art => art.id === parseInt(id, 10)))
 
   if (fanartDeleted) {
     return <Redirect to="/my-fanart" />
   }
+
+  handleCurrentFanart(id);
 
   function handleAddComment() {
     setAddComment(!addComment);
@@ -47,7 +50,15 @@ function Fanart({ user, allFanart, handleDeleteFanart }) {
   function updateComments(comment) {
     const newFanart = currentFanart;
     newFanart.comments.push(comment);
-    setCurrentFanart(newFanart);
+    // setCurrentFanart(newFanart);
+  }
+
+  function removeComment(commentId) {
+    const newFanart = currentFanart
+    const newComments = newFanart.comments.filter(comment => comment.id !== commentId)
+    newFanart.comments = newComments
+    // setCurrentFanart(newFanart);
+
   }
 
   return (
@@ -69,7 +80,13 @@ function Fanart({ user, allFanart, handleDeleteFanart }) {
               <p key={comment.id}>{comment.comment}</p><br></br>
               <p>Commented By: {comment.user.username}</p>
               {comment.user_id === user.id ? <button>Edit Comment</button> : null}
-              {comment.user_id === user.id ? <button>Delete Comment</button> : null}
+              {comment.user_id === user.id ? 
+                <DeleteComment 
+                  comment={comment}
+                  removeComment={removeComment}
+                  setRemovedComment={setRemovedComment}
+                  removedComment={removedComment}
+                /> : null}
             </div>
           )
         })}

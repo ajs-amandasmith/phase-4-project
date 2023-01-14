@@ -1,12 +1,12 @@
 import React from "react";
 
-function DeleteComment({ comment, removeComment, setRemovedComment, removedComment }) {
+function DeleteComment({ comment, updateComments, setRemovedComment, removedComment }) {
 
   function handleDeleteComment(commentId) {
     fetch(`/comments/${commentId}`, {
       method: "DELETE"
     })
-      .then(removeComment(commentId))
+      .then(updateComments(comment, "delete"))
       setRemovedComment(!removedComment)
   }
 

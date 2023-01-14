@@ -14,8 +14,6 @@ function AddComment({
     setAddComment(!addComment);
   }
 
-  console.log("current", currentFanart)
-
   function handleSubmitForm(e) {
     e.preventDefault();
     console.log(e)
@@ -34,7 +32,7 @@ function AddComment({
         if(r.ok) {
           r.json().then(comment => {
             setComment("");
-            updateComments(comment);
+            updateComments(comment, "add");
           })
         } else {
           r.json().then(err => setErrors(err.errors));

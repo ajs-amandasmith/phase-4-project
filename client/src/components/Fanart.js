@@ -4,43 +4,67 @@ import AddComment from "./AddComment";
 import DeleteComment from "./DeleteComment";
 import EditComment from "./EditComment";
 
-function Fanart({ 
-    user, 
-    allFanart, 
-    handleDeleteFanart
-  }) 
-  {
+function Fanart({ user, handleDeleteFanart }) {
   const [fanartDeleted, setFanartDeleted] = useState(false);
   const [addComment, setAddComment] = useState(false);
   const [removedComment, setRemovedComment] = useState(false);
   const [comment, setComment] = useState("");
-  const [editComment, setEditComment] = useState(false);
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(true); 
   const { id } = useParams();
   const [currentFanart, setCurrentFanart] = useState(null);
 
+
   useEffect(() => {
-    setCurrentFanart(allFanart.find(art => art.id === parseInt(id, 10)))
-    setIsLoading(false)
+    fetch(`/fanarts/${id}`)
+      .then(r => {
+        if(r.ok) {
+          r.json().then(fanart => {
+            setCurrentFanart(fanart)
+            setIsLoading(false)
+        })
+        } else {
+          r.json().then(err => setErrors(err))
+        }
+      })    
   }, [])
 
   if (fanartDeleted) {
     return <Redirect to="/my-fanart" />
   }
 
-  function updateComments(comment) {
-    const newFanart = currentFanart;
-    newFanart.comments.push(comment);
-    setCurrentFanart(newFanart);
+  function updateComments(commentUpdate, op) {
+    let newFanart = currentFanart;
+    let newComments;
+    switch(op) {
+      case "add":
+        newFanart.comments.push(commentUpdate);
+        setCurrentFanart(newFanart);
+        break;
+      case "delete":
+        newComments = newFanart.comments.filter(comment => comment.id !== commentUpdate.id)
+        newFanart.comments = newComments
+        setCurrentFanart(newFanart);
+        break;
+      case "edit":
+        console.log(newFanart);
+        newComments = newFanart.comments.map(comment => {
+          if (comment.id === commentUpdate.id) return commentUpdate;
+          return comment;
+        })
+        console.log(commentUpdate, op)
+        newFanart.comments = newComments;
+        console.log(newFanart);
+        setCurrentFanart(newFanart);
+        break;
+    }
+    
   }
 
   function removeComment(commentId) {
-    const newFanart = currentFanart
-    const newComments = newFanart.comments.filter(comment => comment.id !== commentId)
-    newFanart.comments = newComments
-    setCurrentFanart(newFanart);
-
+    
+    
+    
   }
 
   return (
@@ -65,13 +89,14 @@ function Fanart({
                 {comment.user_id === user.id ? 
                   <EditComment 
                     comment={comment} 
-                    editComment={editComment}
-                    setEditComment={setEditComment}
+                    user={user}
+                    currentFanart={currentFanart}
+                    updateComments={updateComments}
                   /> : null}
                 {comment.user_id === user.id ? 
                   <DeleteComment 
                     comment={comment}
-                    removeComment={removeComment}
+                    updateComments={updateComments}
                     setRemovedComment={setRemovedComment}
                     removedComment={removedComment}
                   /> : null}

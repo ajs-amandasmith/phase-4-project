@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
 
   def index
-    render json: Comment.all
+    render json: Comment.all.order(:id)
   end
 
   def create
@@ -10,11 +10,10 @@ class CommentsController < ApplicationController
   end
 
   def update
-    comment = Comment.find(params[:id])
+    comment = Comment.find_by(id: params[:id])
     comment.update(comment_params)
-    render json: comment, include: [:user, :fanart]
+    render json: comment, status: :created
   end
-
 
   def destroy
     comment = Comment.find(params[:id])

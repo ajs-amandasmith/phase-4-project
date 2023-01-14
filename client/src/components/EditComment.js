@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 
 function EditComment({ comment, editComment, setEditComment }) {
-  
   const [commentValue, setCommentValue] = useState(comment.comment);
   const [errors, setErrors] = useState([]);
-  console.log(comment)
 
   function handleEditComment() {
     setEditComment(!editComment)
@@ -29,7 +27,6 @@ function EditComment({ comment, editComment, setEditComment }) {
         }
       })
   }
-
 
   return (
     <div>

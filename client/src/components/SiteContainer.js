@@ -10,13 +10,6 @@ import Fanart from "./Fanart";
 
 function SiteContainer({ onLogin, user, myFanartList, updateUserFanart, removeUserFanart }) {
   const [allFanart, setAllFanart] = useState(null);
-  const [currentFanart, setCurrentFanart] = useState(null);
-
-  function handleCurrentFanart(id) {
-    setCurrentFanart(allFanart.find(art => art.id === parseInt(id, 10)))
-  }
-
-  console.log("current", currentFanart);
 
   useEffect(() => {
     fetch("/fanarts")
@@ -48,9 +41,6 @@ function SiteContainer({ onLogin, user, myFanartList, updateUserFanart, removeUs
             allFanart={allFanart} 
             myFanartList={myFanartList} 
             user={user} 
-            handleCurrentFanart={handleCurrentFanart}
-            currentFanart={currentFanart}
-            setCurrentFanart={setCurrentFanart}
           />
         </Route>
         <Route path="/fanarts">
@@ -62,9 +52,6 @@ function SiteContainer({ onLogin, user, myFanartList, updateUserFanart, removeUs
             allFanart={allFanart}
             handleDeleteFanart={handleDeleteFanart}
             myFanartList={myFanartList}
-            handleCurrentFanart={handleCurrentFanart} 
-            currentFanart={currentFanart}
-            setCurrentFanart={setCurrentFanart}
           /> 
         </Route>
         <Route path="/my-fanart">

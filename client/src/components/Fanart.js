@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Redirect } from "react-router-dom";
+import AddComment from "./AddComment";
 import DeleteComment from "./DeleteComment";
 import EditComment from "./EditComment";
 
 function Fanart({ 
     user, 
     allFanart, 
-    handleDeleteFanart, 
-    handleCurrentFanart, 
-    currentFanart, 
-    setCurrentFanart 
+    handleDeleteFanart
   }) 
   {
   const [fanartDeleted, setFanartDeleted] = useState(false);
@@ -18,43 +16,17 @@ function Fanart({
   const [comment, setComment] = useState("");
   const [editComment, setEditComment] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); 
   const { id } = useParams();
+  const [currentFanart, setCurrentFanart] = useState(null);
+
+  useEffect(() => {
+    setCurrentFanart(allFanart.find(art => art.id === parseInt(id, 10)))
+    setIsLoading(false)
+  }, [])
 
   if (fanartDeleted) {
     return <Redirect to="/my-fanart" />
-  }
-
-  handleCurrentFanart(id);
-
-  function handleAddComment() {
-    setAddComment(!addComment);
-    setErrors([]);
-  }
-
-  function handleCommentSubmit(e) {
-    e.preventDefault();
-    fetch("/comments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        comment: comment,
-        user_id: user.id,
-        fanart_id: currentFanart.id
-      })
-    })
-      .then(r => {
-        if(r.ok) {
-          r.json().then(comment => {
-            setComment("");
-            updateComments(comment);
-          })
-        } else {
-          r.json().then(err => setErrors(err.errors));
-        }
-      })
-    setAddComment(false);
   }
 
   function updateComments(comment) {
@@ -73,6 +45,7 @@ function Fanart({
 
   return (
     <div>
+    {isLoading ? "Loading... " : <div>
       <h3>Title: {currentFanart.title}</h3>
       <h4>Artist: {currentFanart.user.username}</h4>
       <img src={currentFanart.image} alt={currentFanart.description} width="75%" height="75%" ></img>
@@ -82,45 +55,45 @@ function Fanart({
         setFanartDeleted(true)}
       }>Delete Image?</button> : null}
       <div>
-      {currentFanart.comments.length === 0 ? <p>No Comments!</p> : 
-      <ul>
-        {currentFanart.comments.map(function(comment){
-          return (
-            <div>
-              <p key={comment.id}>{comment.comment}</p><br></br>
-              <p>Commented By: {comment.user.username}</p>
-              {comment.user_id === user.id ? 
-                <EditComment 
-                  comment={comment} 
-                  editComment={editComment}
-                  setEditComment={setEditComment}
-                /> : null}
-              {comment.user_id === user.id ? 
-                <DeleteComment 
-                  comment={comment}
-                  removeComment={removeComment}
-                  setRemovedComment={setRemovedComment}
-                  removedComment={removedComment}
-                /> : null}
-            </div>
-          )
-        })}
-      </ul>
-      }
-      {addComment ? null : <button onClick={handleAddComment}>Add a comment?</button>}
-      {addComment ? 
-        <form onSubmit={e => handleCommentSubmit(e)}>
-          <label htmlFor="comment">Add Your Comment: </label><br></br>
-          <input type="text" id="comment" value={comment} onChange={e => setComment(e.target.value)}></input>
-          <input type="submit"></input>
-          <button onClick={handleAddComment}>Cancel</button>
-        </form> : 
-        null
-      }
-       {errors.map(err => (
-        <p key={err}>{err}</p>
-      ))}
+        {currentFanart.comments.length === 0 ? <p>No Comments!</p> : 
+        <ul>
+          {currentFanart.comments.map(function(comment){
+            return (
+              <div>
+                <p key={comment.id}>{comment.comment}</p><br></br>
+                <p>Commented By: {comment.user.username}</p>
+                {comment.user_id === user.id ? 
+                  <EditComment 
+                    comment={comment} 
+                    editComment={editComment}
+                    setEditComment={setEditComment}
+                  /> : null}
+                {comment.user_id === user.id ? 
+                  <DeleteComment 
+                    comment={comment}
+                    removeComment={removeComment}
+                    setRemovedComment={setRemovedComment}
+                    removedComment={removedComment}
+                  /> : null}
+              </div>
+            )
+          })}
+        </ul>
+        }
+        <AddComment
+          addComment={addComment}
+          setAddComment={setAddComment} 
+          comment={comment}
+          setComment={setComment}
+          user={user}
+          currentFanart={currentFanart}
+          updateComments={updateComments}
+        />
+        {errors.map(err => (
+          <p key={err}>{err}</p>
+        ))}
       </div>
+    </div>}
     </div>
   )
 }

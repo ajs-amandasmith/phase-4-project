@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
   def update
     comment = Comment.find(params[:id])
     comment.update(comment_params)
-    render json: comment
+    render json: comment, include: [:user, :fanart]
   end
 
 

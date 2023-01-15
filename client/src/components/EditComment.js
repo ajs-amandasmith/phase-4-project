@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import EditCommentForm from "./EditCommentForm";
 
-function EditComment({ comment, updateComments }) {
+function EditComment({ comment, updateComments, user }) {
   const [editComment, setEditComment] = useState(false);
 
   function handleEditComment() {
@@ -10,7 +10,13 @@ function EditComment({ comment, updateComments }) {
 
   return (
     <div>
-      {editComment ? <EditCommentForm comment={comment} handleEditComment={handleEditComment} updateComments={updateComments} /> : <button onClick={handleEditComment}>Edit Comment</button>}
+      {editComment ? 
+        <EditCommentForm 
+          comment={comment}  
+          handleEditComment={handleEditComment} 
+          updateComments={updateComments}
+          user={user}
+        /> : <button onClick={handleEditComment}>Edit Comment</button>}
  
     </div>
   )

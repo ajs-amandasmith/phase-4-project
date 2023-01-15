@@ -13,6 +13,9 @@ function Fanart({ user, handleDeleteFanart }) {
   const [isLoading, setIsLoading] = useState(true); 
   const { id } = useParams();
   const [currentFanart, setCurrentFanart] = useState(null);
+  const [comments, setComments] = useState([]);
+
+  console.log('comments', comments)
 
 
   useEffect(() => {
@@ -22,11 +25,13 @@ function Fanart({ user, handleDeleteFanart }) {
           r.json().then(fanart => {
             setCurrentFanart(fanart)
             setIsLoading(false)
+            setComments(fanart.comments);
         })
         } else {
           r.json().then(err => setErrors(err))
         }
-      })    
+      })
+  // eslint-disable-next-line    
   }, [])
 
   if (fanartDeleted) {
@@ -34,37 +39,25 @@ function Fanart({ user, handleDeleteFanart }) {
   }
 
   function updateComments(commentUpdate, op) {
-    let newFanart = currentFanart;
     let newComments;
     switch(op) {
       case "add":
-        newFanart.comments.push(commentUpdate);
-        setCurrentFanart(newFanart);
+        newComments = [...comments, commentUpdate]
+        setComments(newComments);
         break;
       case "delete":
-        newComments = newFanart.comments.filter(comment => comment.id !== commentUpdate.id)
-        newFanart.comments = newComments
-        setCurrentFanart(newFanart);
+        newComments = comments.filter(comment => comment.id !== commentUpdate.id)
+        setComments(newComments);
         break;
       case "edit":
-        console.log(newFanart);
-        newComments = newFanart.comments.map(comment => {
+        newComments = comments.map(comment => {
           if (comment.id === commentUpdate.id) return commentUpdate;
           return comment;
         })
-        console.log(commentUpdate, op)
-        newFanart.comments = newComments;
-        console.log(newFanart);
-        setCurrentFanart(newFanart);
+        setComments(newComments);
         break;
+      default:
     }
-    
-  }
-
-  function removeComment(commentId) {
-    
-    
-    
   }
 
   return (
@@ -79,12 +72,12 @@ function Fanart({ user, handleDeleteFanart }) {
         setFanartDeleted(true)}
       }>Delete Image?</button> : null}
       <div>
-        {currentFanart.comments.length === 0 ? <p>No Comments!</p> : 
+        {comments.length === 0 ? <p>No Comments!</p> : 
         <ul>
-          {currentFanart.comments.map(function(comment){
+          {comments.map(function(comment){
             return (
-              <div>
-                <p key={comment.id}>{comment.comment}</p><br></br>
+              <div key={comment.id}>
+                <p>{comment.comment}</p><br></br>
                 <p>Commented By: {comment.user.username}</p>
                 {comment.user_id === user.id ? 
                   <EditComment 

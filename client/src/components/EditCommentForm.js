@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 function EditCommentForm({ handleEditComment, comment, updateComments }) {
   const [commentValue, setCommentValue] = useState(comment.comment);
-  const [currentComment, setCurrentComment] = useState("");
 
   function handleSubmitForm(e) {
     e.preventDefault();
@@ -17,8 +16,8 @@ function EditCommentForm({ handleEditComment, comment, updateComments }) {
     })
       .then(r => r.json())
       .then(comment => {
-        handleEditComment();
         updateComments(comment, "edit")
+        handleEditComment(false);
       })
   }
 

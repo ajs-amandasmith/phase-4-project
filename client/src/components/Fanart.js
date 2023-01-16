@@ -3,6 +3,7 @@ import { useParams, Redirect } from "react-router-dom";
 import AddComment from "./AddComment";
 import DeleteComment from "./DeleteComment";
 import EditComment from "./EditComment";
+import EditFanart from "./EditFanart";
 
 function Fanart({ user, handleDeleteFanart }) {
   const [fanartDeleted, setFanartDeleted] = useState(false);
@@ -14,9 +15,7 @@ function Fanart({ user, handleDeleteFanart }) {
   const { id } = useParams();
   const [currentFanart, setCurrentFanart] = useState(null);
   const [comments, setComments] = useState([]);
-
-  console.log('comments', comments)
-
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     fetch(`/fanarts/${id}`)
@@ -26,6 +25,7 @@ function Fanart({ user, handleDeleteFanart }) {
             setCurrentFanart(fanart)
             setIsLoading(false)
             setComments(fanart.comments);
+            setImage(fanart.image);
         })
         } else {
           r.json().then(err => setErrors(err))
@@ -60,6 +60,10 @@ function Fanart({ user, handleDeleteFanart }) {
     }
   }
 
+  function handleEditFanart() {
+    console.log(image);
+  }
+
   return (
     <div>
     {isLoading ? "Loading... " : <div>
@@ -70,7 +74,8 @@ function Fanart({ user, handleDeleteFanart }) {
       {currentFanart.user_id === user.id ? <button onClick={e => {
         handleDeleteFanart(parseInt(id)) 
         setFanartDeleted(true)}
-      }>Delete Image?</button> : null}
+      }>Delete Fanart?</button> : null}
+      {currentFanart.user_id === user.id ? <EditFanart editFanart={handleEditFanart} /> : null}
       <div>
         {comments.length === 0 ? <p>No Comments!</p> : 
         <ul>

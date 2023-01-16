@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
 
   def update
     comment = Comment.find_by(id: params[:id])
-    comment.update(comment_params)
+    comment.update!(comment_params)
     render json: comment, status: :created, include: :user
   end
 

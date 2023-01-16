@@ -18,6 +18,12 @@ class FanartsController < ApplicationController
     render json: fanart, status: :created
   end
 
+  def update
+    fanart = Fanart.find!(params[:id])
+    fanart.update(fanart_params)
+    render json: fanart, status: :created
+  end
+
   def destroy
     fanart = Fanart.find(params[:id])
     fanart.delete

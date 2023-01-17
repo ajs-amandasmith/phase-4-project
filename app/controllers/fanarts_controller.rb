@@ -19,9 +19,11 @@ class FanartsController < ApplicationController
   end
 
   def update
-    fanart = Fanart.find!(params[:id])
+    fanart = Fanart.find(params[:id])
     fanart.update(fanart_params)
-    render json: fanart, status: :created
+    render json: fanart, status: :created, include: [ :user => { :except => [:password_digest, :created_at, :updated_at] },
+                                                      :comments => { :include => { :user => { :except => [:password_digest, :created_at, :updated_at] }
+                                                      } } ]
   end
 
   def destroy

@@ -15,17 +15,23 @@ function Fanart({ user, handleDeleteFanart }) {
   const { id } = useParams();
   const [currentFanart, setCurrentFanart] = useState(null);
   const [comments, setComments] = useState([]);
-  const [image, setImage] = useState("");
+  const [url, setUrl] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [series, setSeries] = useState("");
 
   useEffect(() => {
     fetch(`/fanarts/${id}`)
       .then(r => {
         if(r.ok) {
           r.json().then(fanart => {
-            setCurrentFanart(fanart)
-            setIsLoading(false)
+            setCurrentFanart(fanart);
+            setIsLoading(false);
             setComments(fanart.comments);
-            setImage(fanart.image);
+            setUrl(fanart.image);
+            setTitle(fanart.title);
+            setDescription(fanart.description);
+            setSeries(fanart.series);
         })
         } else {
           r.json().then(err => setErrors(err))
@@ -61,7 +67,7 @@ function Fanart({ user, handleDeleteFanart }) {
   }
 
   function handleEditFanart() {
-    console.log(image);
+    console.log(url);
   }
 
   return (
@@ -71,11 +77,24 @@ function Fanart({ user, handleDeleteFanart }) {
       <h4>Artist: {currentFanart.user.username}</h4>
       <img src={currentFanart.image} alt={currentFanart.description} width="75%" height="75%" ></img>
       <p>{currentFanart.description}</p>
+      <p>Series: {currentFanart.series}</p>
       {currentFanart.user_id === user.id ? <button onClick={e => {
         handleDeleteFanart(parseInt(id)) 
         setFanartDeleted(true)}
       }>Delete Fanart?</button> : null}
-      {currentFanart.user_id === user.id ? <EditFanart editFanart={handleEditFanart} /> : null}
+      {currentFanart.user_id === user.id ? <EditFanart 
+        editFanart={handleEditFanart} 
+        url={url}
+        setUrl={setUrl}
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={setDescription}
+        series={series}
+        setSeries={setSeries}
+        id={id}
+        setCurrentFanart={setCurrentFanart}
+      /> : null}
       <div>
         {comments.length === 0 ? <p>No Comments!</p> : 
         <ul>

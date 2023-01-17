@@ -1,19 +1,39 @@
 import React, { useState } from "react";
 
-function EditFanartForm({ handleEditFanart }) {
-  const [url, setUrl] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [series, setSeries] = useState("");
+function EditFanartForm({ handleEditFanart, url, setUrl, title, setTitle, description, setDescription, series, setSeries, id, setCurrentFanart, fanartEdit }) {
+  const [errors, setErrors] = useState([]);
 
   function handleSubmitForm(e) {
     e.preventDefault();
-    console.log(e);
+    fetch(`/fanarts/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        title: title,
+        description: description,
+        image: url,
+        series: series
+      })
+    }).then(r => {
+      if(r.ok) {
+        r.json().then(art => {
+          handleEditFanart();
+          setCurrentFanart(art);
+        })
+      } else {
+        r.json().then(err => {
+          setErrors(err.errors)
+        });
+      }
+    })
+    
   }
 
   return (
     <div>
-      <form onSubmit={e => handleSubmitForm(e)}>
+      {fanartEdit ? <form onSubmit={e => handleSubmitForm(e)}>
         <label htmlFor="url">Update URL</label><br />
         <input 
           type="url" 
@@ -47,7 +67,10 @@ function EditFanartForm({ handleEditFanart }) {
         <br />
         <input type="submit"></input>
         <button onClick={handleEditFanart}>Cancel</button>
-      </form>
+        {errors.map(err => (
+        <p key={err}>{err}</p>
+          ))}
+      </form> : null}
     </div>
   )
 }

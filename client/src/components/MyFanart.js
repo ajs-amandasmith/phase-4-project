@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-function MyFanart({ user, allFanart, handleDeleteFanart }) {
+function MyFanart({ user, allFanart, handleDeleteFanart, myFanart }) {
   
-  const displayFanart = allFanart.filter(art => art.user_id === user.id).map(fanart => (
+  const displayFanart = myFanart.map(fanart => (
     <div key={fanart.id}>
       <h1>
         <Link to={`/my-fanart/${fanart.id}`}>

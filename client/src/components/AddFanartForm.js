@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 
-function AddFanartForm({ updateUserFanart }) {
+function AddFanartForm({ updateUserFanart, user, updateMyFanart }) {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
@@ -27,7 +27,8 @@ function AddFanartForm({ updateUserFanart }) {
         title,
         image,
         description,
-        series
+        series,
+        user_id: user.id
       })
     }).then( r => {
       setIsLoading(false);
@@ -35,6 +36,7 @@ function AddFanartForm({ updateUserFanart }) {
         r.json().then(fanart => {
           updateUserFanart(fanart)
           setToFanart(true)
+          updateMyFanart(fanart)
         })
       } else {
         r.json().then(err => {

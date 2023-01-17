@@ -10,11 +10,17 @@ import Fanart from "./Fanart";
 
 function SiteContainer({ onLogin, user, myFanartList, updateUserFanart, removeUserFanart }) {
   const [allFanart, setAllFanart] = useState(null);
+  const [myFanart, setMyFanart] = useState([]);
+  console.log(myFanart)
 
   useEffect(() => {
     fetch("/fanarts")
       .then(r => r.json())
-      .then(art => setAllFanart(art));
+      .then(art => {
+        setAllFanart(art)
+        setMyFanart(art.filter(fanart => fanart.user_id === user.id))
+      });
+        
   }, [])
 
   function handleDeleteFanart(id) {
@@ -22,6 +28,11 @@ function SiteContainer({ onLogin, user, myFanartList, updateUserFanart, removeUs
       method: "DELETE"
     })
       .then(removeUserFanart(id))
+  }
+
+  function updateMyFanart(newFanart) {
+    const myNewFanart = [...myFanart, newFanart]
+    setMyFanart(myNewFanart);
   }
 
   return (
@@ -59,10 +70,15 @@ function SiteContainer({ onLogin, user, myFanartList, updateUserFanart, removeUs
             user={user} 
             allFanart={allFanart}
             handleDeleteFanart={handleDeleteFanart}
+            myFanart={myFanart}
           />
         </Route>
         <Route path="/add-fanart">
-          <AddFanartForm updateUserFanart={updateUserFanart} />
+          <AddFanartForm 
+            updateUserFanart={updateUserFanart} 
+            user={user} 
+            updateMyFanart={updateMyFanart}
+          />
         </Route>
       </Switch>
     </div>

@@ -14,8 +14,8 @@ class FanartsController < ApplicationController
   end
 
   def create
-    fanart = @current_user.fanarts.create!(fanart_params)
-    render json: fanart, status: :created
+    fanart = Fanart.create!(fanart_params)
+    render json: fanart, status: :created, include: :comments
   end
 
   def update
@@ -35,6 +35,6 @@ class FanartsController < ApplicationController
   private
 
   def fanart_params
-    params.permit(:title, :image, :description, :series)
+    params.permit(:title, :image, :description, :series, :user_id)
   end
 end

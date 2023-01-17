@@ -7,18 +7,32 @@ import SiteContainer from "./SiteContainer";
 function App() {
   const [user, setUser] = useState(null);
   const [userFanart, setUserFanart] = useState([]);
-  const [myFanartList, setMyFanartList] = useState(false);
+  const [allFanart, setAllFanart] = useState([]);
+  const [myFanart, setMyFanart] = useState([]);
 
   useEffect(() => {
     fetch("/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => {
           setUser(user)
-          setUserFanart(user.fanarts)
         });
       }
-    });
+    })
   }, [])
+
+  useEffect(() => {
+    fetch("/fanarts")
+      .then(r => r.json())    
+      .then(art => {
+        setAllFanart(art)
+        myFanartSetup(art)
+      });
+  }, [user])
+
+  function myFanartSetup(art) {
+    const myList = art.filter(fanart => fanart.user_id === user.id);
+    setMyFanart(myList);
+  }
 
   function updateUserFanart(fanart) {
     const newUser = user;
@@ -36,7 +50,7 @@ function App() {
 
   return (
     <div className="container">
-      {user ? <NavBar user={user} setUser={setUser} setMyFanartList={setMyFanartList} /> : null}
+      {user ? <NavBar user={user} setUser={setUser} /> : null}
       <h1>Fanart Expo</h1>
       <SiteContainer 
         onLogin={setUser} 
@@ -44,7 +58,10 @@ function App() {
         userFanart={userFanart}
         updateUserFanart={updateUserFanart} 
         removeUserFanart={removeUserFanart}
-        myFanartList={myFanartList}
+        allFanart={allFanart}
+        setAllFanart={setAllFanart}
+        myFanart={myFanart}
+        setMyFanart={setMyFanart}
       />
     </div>
   );

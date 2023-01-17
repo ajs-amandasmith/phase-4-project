@@ -3,7 +3,7 @@ import { Navbar, Nav } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 
 
-function NavBar({ user, setUser, setMyFanartList }) {
+function NavBar({ user, setUser }) {
   const [toLogin, setToLogin] = useState(false);
 
   if (toLogin) {
@@ -30,8 +30,8 @@ function NavBar({ user, setUser, setMyFanartList }) {
             {user ? <Nav.Link as={Link} to="/login" onClick={handleLogoutClick} >Logout</Nav.Link> :
               <Nav.Link as={Link} to="/login">Login</Nav.Link>
             }
-            <Nav.Link as={Link} to="/fanarts" onClick={e => setMyFanartList(false)} >Fanart</Nav.Link>
-            <Nav.Link as={Link} to="/my-fanart" onClick={e => setMyFanartList(true)} >My Fanart</Nav.Link>
+            <Nav.Link as={Link} to="/fanarts">Fanart</Nav.Link>
+            <Nav.Link as={Link} to="/my-fanart">My Fanart</Nav.Link>
             <Nav.Link as={Link} to="/add-fanart" >Add Fanart</Nav.Link>
           </Nav>
         </Navbar.Collapse>

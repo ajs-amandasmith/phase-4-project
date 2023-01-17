@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function FanartList({ listFanart }) {
+function FanartList({ allFanart }) {
 
-  const displayFanart = listFanart.map(art => (
+  const displayFanart = allFanart.map(art => (
     <div key={art.id}>
       <h1>
         <Link to={`/fanarts/${art.id}`}>

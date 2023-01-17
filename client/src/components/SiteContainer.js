@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import Login from "./Login";
@@ -8,20 +8,7 @@ import MyFanart from "./MyFanart";
 import AddFanartForm from "./AddFanartForm";
 import Fanart from "./Fanart";
 
-function SiteContainer({ onLogin, user, myFanartList, updateUserFanart, removeUserFanart }) {
-  const [allFanart, setAllFanart] = useState(null);
-  const [myFanart, setMyFanart] = useState([]);
-  console.log(myFanart)
-
-  useEffect(() => {
-    fetch("/fanarts")
-      .then(r => r.json())
-      .then(art => {
-        setAllFanart(art)
-        setMyFanart(art.filter(fanart => fanart.user_id === user.id))
-      });
-        
-  }, [])
+function SiteContainer({ onLogin, user, updateUserFanart, removeUserFanart, allFanart, setAllFanart, myFanart, setMyFanart }) {
 
   function handleDeleteFanart(id) {
     fetch(`/fanarts/${id}`, {
@@ -32,7 +19,9 @@ function SiteContainer({ onLogin, user, myFanartList, updateUserFanart, removeUs
 
   function updateMyFanart(newFanart) {
     const myNewFanart = [...myFanart, newFanart]
+    const allNewFanart = [...allFanart, newFanart]
     setMyFanart(myNewFanart);
+    setAllFanart(allNewFanart);    
   }
 
   return (
@@ -50,19 +39,17 @@ function SiteContainer({ onLogin, user, myFanartList, updateUserFanart, removeUs
         <Route path="/fanarts/:id">
           <Fanart 
             allFanart={allFanart} 
-            myFanartList={myFanartList} 
             user={user} 
           />
         </Route>
         <Route path="/fanarts">
-          <FanartList listFanart={allFanart} />
+          <FanartList allFanart={allFanart} />
         </Route>
         <Route path="/my-fanart/:id">
           <Fanart 
             user={user} 
             allFanart={allFanart}
             handleDeleteFanart={handleDeleteFanart}
-            myFanartList={myFanartList}
           /> 
         </Route>
         <Route path="/my-fanart">

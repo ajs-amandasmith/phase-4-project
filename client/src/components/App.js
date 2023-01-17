@@ -27,6 +27,7 @@ function App() {
         setAllFanart(art)
         myFanartSetup(art)
       });
+  // eslint-disable-next-line  
   }, [user])
 
   function myFanartSetup(art) {

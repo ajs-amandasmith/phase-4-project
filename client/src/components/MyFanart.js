@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-function MyFanart({ user, allFanart, handleDeleteFanart, myFanart }) {
+function MyFanart({ user, handleDeleteFanart, myFanart }) {
   
   const displayFanart = myFanart.map(fanart => (
     <div key={fanart.id}>

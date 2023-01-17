@@ -66,10 +66,6 @@ function Fanart({ user, handleDeleteFanart }) {
     }
   }
 
-  function handleEditFanart() {
-    console.log(url);
-  }
-
   return (
     <div>
     {isLoading ? "Loading... " : <div>
@@ -83,7 +79,6 @@ function Fanart({ user, handleDeleteFanart }) {
         setFanartDeleted(true)}
       }>Delete Fanart?</button> : null}
       {currentFanart.user_id === user.id ? <EditFanart 
-        editFanart={handleEditFanart} 
         url={url}
         setUrl={setUrl}
         title={title}

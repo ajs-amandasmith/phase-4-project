@@ -16,7 +16,6 @@ function AddComment({
 
   function handleSubmitForm(e) {
     e.preventDefault();
-    console.log(e)
     fetch("/comments", {
       method: "POST",
       headers: {

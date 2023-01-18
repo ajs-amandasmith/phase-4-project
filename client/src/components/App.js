@@ -36,9 +36,8 @@ function App() {
   }
 
   function updateUserFanart(fanart) {
-    const newUser = user;
-    newUser.fanarts.push(fanart);
-    setUser(newUser);
+    const newFanart = myFanart
+    setMyFanart(newFanart);
   }
 
   function removeUserFanart(fanartId) {

@@ -94,6 +94,15 @@ function Fanart({ user, handleDeleteFanart }) {
         id={id}
         setCurrentFanart={setCurrentFanart}
       /> : null}
+          <AddComment
+          addComment={addComment}
+          setAddComment={setAddComment} 
+          comment={comment}
+          setComment={setComment}
+          user={user}
+          currentFanart={currentFanart}
+          updateComments={updateComments}
+        />
       <div>
         {comments.length === 0 ? <p>No Comments!</p> : 
         <ul>
@@ -121,15 +130,6 @@ function Fanart({ user, handleDeleteFanart }) {
           })}
         </ul>
         }
-        <AddComment
-          addComment={addComment}
-          setAddComment={setAddComment} 
-          comment={comment}
-          setComment={setComment}
-          user={user}
-          currentFanart={currentFanart}
-          updateComments={updateComments}
-        />
         {errors.map(err => (
           <p key={err}>{err}</p>
         ))}

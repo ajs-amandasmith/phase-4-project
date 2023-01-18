@@ -1,3 +1,4 @@
+import '../App.css';
 import React from "react";
 
 function AddComment({ 
@@ -42,7 +43,7 @@ function AddComment({
   
   return (
     <div>
-      {addComment ? null : <button onClick={handleAddComment}>Add a comment?</button>}
+      {addComment ? null : <button className="fanart-add-comment" onClick={handleAddComment}>Add a comment?</button>}
       {addComment ? 
         <form onSubmit={e => handleSubmitForm(e)}>
           <label htmlFor="comment">Add Your Comment: </label><br></br>

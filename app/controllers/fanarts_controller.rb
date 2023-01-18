@@ -15,7 +15,7 @@ class FanartsController < ApplicationController
 
   def create
     fanart = Fanart.create!(fanart_params)
-    render json: fanart, status: :created, include: :comments
+    render json: fanart, status: :created, include: [:comments, :user]
   end
 
   def update

@@ -37,7 +37,9 @@ function App() {
 
   function updateUserFanart(fanart) {
     const newFanart = myFanart
+    const newAll = [...allFanart, fanart]
     setMyFanart(newFanart);
+    setAllFanart(newAll);
   }
 
   function removeUserFanart(fanartId) {

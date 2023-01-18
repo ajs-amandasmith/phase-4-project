@@ -52,6 +52,17 @@
   font-size: calc(8px + 2vmin);
 }
 
+.list-image {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
+
+.list-image:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
 .list-series {
   margin: 0px;
 }
@@ -59,4 +70,63 @@
 .list-delete {
   background-color: #f44336;
   border-radius: 8px;
+}
+
+.fanart-item {
+  border: solid;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.fanart-title {
+  font-size: calc(16px + 2vmin);
+  border: 2px solid;
+  background-color: #1C2833;
+  color: white;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.fanart-artist {
+  font-size: calc(12px + 2vmin);
+}
+
+.fanart-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fanart-series{
+  text-align: center;
+  font-weight: bold;
+}
+
+.description {
+  border: solid 1px;
+  margin: 20px;
+  padding: 10px; 
+}
+
+.fanart-description-title {
+  text-decoration: underline;
+}
+
+.fanart-description {
+  padding: 0px;
+}
+
+.fanart-delete {
+  background-color: #f44336;
+  border-radius: 8px;
+  margin: 5px;
+}
+
+.fanart-edit {
+  background-color: #273746;
+  color: white;
+  border-radius: 8px;
+  margin: 5px;
 }

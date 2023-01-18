@@ -68,14 +68,17 @@ function Fanart({ user, handleDeleteFanart }) {
   }
 
   return (
-    <div>
+    <div className="fanart-item">
     {isLoading ? "Loading... " : <div>
-      <h3>Title: {currentFanart.title}</h3>
-      <h4>Artist: {currentFanart.user.username}</h4>
-      <img src={currentFanart.image} alt={currentFanart.description}></img>
-      <p>{currentFanart.description}</p>
-      <p>Series: {currentFanart.series}</p>
-      {currentFanart.user_id === user.id ? <button onClick={e => {
+      <h3 className="fanart-title">Title: {currentFanart.title}</h3>
+      <h4 className="fanart-artist">Artist: {currentFanart.user.username}</h4>
+      <img className="fanart-image" src={currentFanart.image} alt={currentFanart.description}></img>
+      <p className="fanart-series">Series: {currentFanart.series}</p>
+      <div className="description">
+        <p className="fanart-description-title">Description:</p>
+        <p className="fanart-description">{currentFanart.description}</p>
+      </div>
+      {currentFanart.user_id === user.id ? <button className="fanart-delete" onClick={e => {
         handleDeleteFanart(parseInt(id)) 
         setFanartDeleted(true)}
       }>Delete Fanart?</button> : null}

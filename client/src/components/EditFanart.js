@@ -1,3 +1,4 @@
+import '../App.css';
 import React, { useState } from "react";
 import EditFanartForm from "./EditFanartForm";
 
@@ -25,7 +26,7 @@ function EditFanart({ url, setUrl, title, setTitle, description, setDescription,
           setCurrentFanart={setCurrentFanart}
           setFanartEdit={setFanartEdit}
           fanartEdit={fanartEdit}
-        /> : <button onClick={handleEditFanart}>Edit Fanart?</button>}
+        /> : <button className="fanart-edit" onClick={handleEditFanart}>Edit Fanart?</button>}
     </div>
   )
 }

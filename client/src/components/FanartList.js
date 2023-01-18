@@ -6,12 +6,11 @@ function FanartList({ allFanart }) {
 
   const displayFanart = allFanart.map(art => (
     <div key={art.id} className="list-item">
-      <h1 className="list-title">
-        <Link to={`/fanarts/${art.id}`}>
-          Title: {art.title}
-        </Link>
-      </h1>
+      <h1 className="list-title">Title: {art.title}</h1>
       <h3 className="list-artist">Artist: {art.user.username}</h3>
+      <Link to={`/fanarts/${art.id}`}>
+        <img className="list-image" src={art.image} alt={art.description}></img>
+      </Link>
       <p className="list-series">Series: {art.series}</p>
       <p>Comments: {art.comments.length}</p>
     </div>

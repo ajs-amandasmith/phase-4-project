@@ -19,7 +19,7 @@ puts "🌱 Seeding data..."
   rand(1..5).times do
     fanart = Fanart.create(
       title: Faker::Lorem.word,
-      image: Faker::LoremFlickr.image
+      image: Faker::LoremFlickr.image,
       description: Faker::Lorem.paragraph,
       series: Faker::Lorem.word,
       user_id: user.id
@@ -33,5 +33,6 @@ puts "🌱 Seeding data..."
     end
   end
 end
+
 
 puts "✅ Done seeding!"

@@ -1,3 +1,4 @@
+import '../App.css';
 import React, { useState } from "react";
 import EditCommentForm from "./EditCommentForm";
 
@@ -16,7 +17,7 @@ function EditComment({ comment, updateComments, user }) {
           handleEditComment={handleEditComment} 
           updateComments={updateComments}
           user={user}
-        /> : <button onClick={handleEditComment}>Edit Comment</button>}
+        /> : <button className="comment-edit" onClick={handleEditComment}>Edit Comment?</button>}
  
     </div>
   )

@@ -103,14 +103,16 @@ function Fanart({ user, handleDeleteFanart }) {
           currentFanart={currentFanart}
           updateComments={updateComments}
         />
-      <div>
+      <div className="fanart-comments">
         {comments.length === 0 ? <p>No Comments!</p> : 
         <ul>
           {comments.map(function(comment){
             return (
-              <div key={comment.id}>
-                <p>{comment.comment}</p><br></br>
+              <div className="fanart-comment" key={comment.id}>
+                <p className="user-comment">{comment.comment}</p><br></br>
+                <hr></hr>
                 <p>Commented By: {comment.user.username}</p>
+                <hr></hr>
                 {comment.user_id === user.id ? 
                   <EditComment 
                     comment={comment} 

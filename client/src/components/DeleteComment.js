@@ -1,3 +1,4 @@
+import '../App.css';
 import React from "react";
 
 function DeleteComment({ comment, updateComments, setRemovedComment, removedComment }) {
@@ -12,7 +13,7 @@ function DeleteComment({ comment, updateComments, setRemovedComment, removedComm
 
   return (
     <div>
-      <button onClick={e => handleDeleteComment(comment.id)}>Delete Comment</button>
+      <button className="comment-delete" onClick={e => handleDeleteComment(comment.id)}>Delete Comment?</button>
     </div>
   )
 }

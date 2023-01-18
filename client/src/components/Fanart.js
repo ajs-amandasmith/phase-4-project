@@ -1,3 +1,4 @@
+import '../App.css';
 import React, { useState, useEffect } from "react";
 import { useParams, Redirect } from "react-router-dom";
 import AddComment from "./AddComment";
@@ -71,7 +72,7 @@ function Fanart({ user, handleDeleteFanart }) {
     {isLoading ? "Loading... " : <div>
       <h3>Title: {currentFanart.title}</h3>
       <h4>Artist: {currentFanart.user.username}</h4>
-      <img src={currentFanart.image} alt={currentFanart.description} width="75%" height="75%" ></img>
+      <img src={currentFanart.image} alt={currentFanart.description}></img>
       <p>{currentFanart.description}</p>
       <p>Series: {currentFanart.series}</p>
       {currentFanart.user_id === user.id ? <button onClick={e => {

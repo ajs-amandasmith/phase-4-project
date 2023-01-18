@@ -27,12 +27,13 @@ function NavBar({ user, setUser }) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link as={Link} to="/" >Home</Nav.Link>
-            {user ? <Nav.Link as={Link} to="/login" onClick={handleLogoutClick} >Logout</Nav.Link> :
-              <Nav.Link as={Link} to="/login">Login</Nav.Link>
-            }
+           
             <Nav.Link as={Link} to="/fanarts">Fanart</Nav.Link>
             <Nav.Link as={Link} to="/my-fanart">My Fanart</Nav.Link>
             <Nav.Link as={Link} to="/add-fanart" >Add Fanart</Nav.Link>
+            {user ? <Nav.Link as={Link} to="/login" onClick={handleLogoutClick} >Logout</Nav.Link> :
+              <Nav.Link as={Link} to="/login">Login</Nav.Link>
+            }
           </Nav>
         </Navbar.Collapse>
       </Navbar>

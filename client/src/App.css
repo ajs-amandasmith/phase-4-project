@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,28 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+.list-title {
+  font-size: calc(12px + 2vmin);
+}
+
+.list-item{
+  border: 2px dotted;
+  margin: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.list-artist {
+  font-size: calc(8px + 2vmin);
+}
+
+.list-series {
+  margin: 0px;
+}
+
+.list-delete {
+  background-color: #f44336;
+  border-radius: 8px;
 }

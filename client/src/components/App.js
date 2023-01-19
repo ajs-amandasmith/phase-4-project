@@ -44,7 +44,9 @@ function App() {
 
   function removeUserFanart(fanartId) {
     const newFanart = myFanart.filter(fanart => fanart.id !== fanartId)
+    const newAll = allFanart.filter(art => art.id !== fanartId);
     setMyFanart(newFanart)
+    setAllFanart(newAll);
   }
 
   return (

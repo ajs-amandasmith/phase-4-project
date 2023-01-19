@@ -22,23 +22,4 @@ This app uses:
 * bootstrap version 5.2.3
 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+When using the application, you can create an account, login/logout, add fanart, view all fanart in the database attached to the application, view the fanart you have added, comment on any fanart including yours, edit/delete your fanart, edit delete your comments.

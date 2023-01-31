@@ -66,7 +66,7 @@ function Fanart({ user, handleDeleteFanart }) {
       default:
     }
   }
-
+  
   return (
     <div className="fanart-item">
     {isLoading ? "Loading... " : <div>
@@ -107,6 +107,7 @@ function Fanart({ user, handleDeleteFanart }) {
         {comments.length === 0 ? <p>No Comments!</p> : 
         <ul>
           {comments.map(function(comment){
+            console.log(comment)
             return (
               <div className="fanart-comment" key={comment.id}>
                 <p className="user-comment">{comment.comment}</p><br></br>

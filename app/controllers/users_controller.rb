@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    render json: @current_user, include: [ :fanarts ]
+    render json: @current_user, serializer: UserSerializer
   end
 
   def destroy

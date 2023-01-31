@@ -78,11 +78,11 @@ function Fanart({ user, handleDeleteFanart }) {
         <p className="fanart-description-title">Description:</p>
         <p className="fanart-description">{currentFanart.description}</p>
       </div>
-      {currentFanart.user_id === user.id ? <button className="fanart-delete" onClick={e => {
+      {currentFanart.user.id === user.id ? <button className="fanart-delete" onClick={e => {
         handleDeleteFanart(parseInt(id)) 
         setFanartDeleted(true)}
       }>Delete Fanart?</button> : null}
-      {currentFanart.user_id === user.id ? <EditFanart 
+      {currentFanart.user.id === user.id ? <EditFanart 
         url={url}
         setUrl={setUrl}
         title={title}
@@ -107,21 +107,20 @@ function Fanart({ user, handleDeleteFanart }) {
         {comments.length === 0 ? <p>No Comments!</p> : 
         <ul>
           {comments.map(function(comment){
-            console.log(comment)
             return (
               <div className="fanart-comment" key={comment.id}>
                 <p className="user-comment">{comment.comment}</p><br></br>
                 <hr></hr>
                 <p>Commented By: {comment.user.username}</p>
                 <hr></hr>
-                {comment.user_id === user.id ? 
+                {comment.user.id === user.id ? 
                   <EditComment 
                     comment={comment} 
                     user={user}
                     currentFanart={currentFanart}
                     updateComments={updateComments}
                   /> : null}
-                {comment.user_id === user.id ? 
+                {comment.user.id === user.id ? 
                   <DeleteComment 
                     comment={comment}
                     updateComments={updateComments}

@@ -40,6 +40,7 @@ function SiteContainer({ onLogin, user, updateUserFanart, removeUserFanart, allF
           <Fanart 
             allFanart={allFanart} 
             user={user} 
+            handleDeleteFanart={handleDeleteFanart}
           />
         </Route>
         <Route path="/fanarts">

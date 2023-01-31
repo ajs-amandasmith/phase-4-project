@@ -15,7 +15,7 @@ function App() {
       if (r.ok) {
         r.json().then((user) => {
           setUser(user)
-          console.log(user.fanarts)
+          setMyFanart(user.fanarts)
         });
       }
     })
@@ -26,15 +26,15 @@ function App() {
       .then(r => r.json())    
       .then(art => {
         setAllFanart(art)
-        myFanartSetup(art)
+        // myFanartSetup(art)
       });
   // eslint-disable-next-line  
   }, [user])
 
-  function myFanartSetup(art) {
-    const myList = art.filter(fanart => fanart.user_id === user.id);
-    setMyFanart(myList);
-  }
+  // function myFanartSetup(art) {
+  //   const myList = art.filter(fanart => fanart.user_id === user.id);
+  //   setMyFanart(myList);
+  // }
 
   function updateUserFanart(fanart) {
     const newFanart = myFanart

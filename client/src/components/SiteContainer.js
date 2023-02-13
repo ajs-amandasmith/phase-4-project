@@ -7,7 +7,7 @@ import FanartList from "./FanartList";
 import MyFanart from "./MyFanart";
 import AddFanartForm from "./AddFanartForm";
 import Fanart from "./Fanart";
-import MyComments from "./MyComments";
+import MyComments from "./MyCommentedFanart";
 
 function SiteContainer({ onLogin, user, updateUserFanart, removeUserFanart, allFanart, setAllFanart, myFanart, setMyFanart }) {
 

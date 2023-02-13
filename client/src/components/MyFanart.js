@@ -3,8 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function MyFanart({ user, handleDeleteFanart, myFanart }) {
-
-  console.log(myFanart)
   
   const displayFanart = myFanart.map(fanart => (
     <div key={fanart.id} className="list-item">

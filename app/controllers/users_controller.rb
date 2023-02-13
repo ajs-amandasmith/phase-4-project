@@ -15,6 +15,10 @@ class UsersController < ApplicationController
     render json: @current_user, serializer: UserSerializer
   end
 
+  def comments
+    render json: @current_user.commented_fanart
+  end
+
   def destroy
     user = User.find(params[:id])
     user.delete

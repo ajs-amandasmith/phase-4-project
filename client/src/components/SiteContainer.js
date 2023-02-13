@@ -7,6 +7,7 @@ import FanartList from "./FanartList";
 import MyFanart from "./MyFanart";
 import AddFanartForm from "./AddFanartForm";
 import Fanart from "./Fanart";
+import MyComments from "./MyComments";
 
 function SiteContainer({ onLogin, user, updateUserFanart, removeUserFanart, allFanart, setAllFanart, myFanart, setMyFanart }) {
 
@@ -67,6 +68,9 @@ function SiteContainer({ onLogin, user, updateUserFanart, removeUserFanart, allF
             user={user} 
             updateMyFanart={updateMyFanart}
           />
+        </Route>
+        <Route>
+          <MyComments />
         </Route>
       </Switch>
     </div>

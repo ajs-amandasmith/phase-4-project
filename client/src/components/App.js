@@ -21,6 +21,10 @@ function App() {
     })
   }, [])
 
+  console.log('user', user)
+  console.log('myFanart', myFanart)
+  console.log('allFanart', allFanart)
+
   useEffect(() => {
     fetch("/fanarts")
       .then(r => r.json())    

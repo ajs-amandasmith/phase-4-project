@@ -10,6 +10,7 @@ function App() {
   const [allFanart, setAllFanart] = useState([]);
   const [myFanart, setMyFanart] = useState([]);
 
+  // Gets the signed in user's data
   useEffect(() => {
     fetch("/me").then((r) => {
       if (r.ok) {
@@ -30,15 +31,9 @@ function App() {
       .then(r => r.json())    
       .then(art => {
         setAllFanart(art)
-        // myFanartSetup(art)
       });
   // eslint-disable-next-line  
   }, [user])
-
-  // function myFanartSetup(art) {
-  //   const myList = art.filter(fanart => fanart.user_id === user.id);
-  //   setMyFanart(myList);
-  // }
 
   function updateUserFanart(fanart) {
     const newFanart = myFanart

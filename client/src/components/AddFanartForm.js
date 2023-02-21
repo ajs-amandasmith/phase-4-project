@@ -11,7 +11,7 @@ function AddFanartForm({ updateUserFanart, user, updateMyFanart }) {
   const [isLoading, setIsLoading] = useState(false);
 
   if(toFanart) {
-    return <Redirect to="/my-fanart" />
+    return <Redirect to="/fanarts" />
   }
 
   function handleSubmit(e) {

@@ -30,6 +30,6 @@ class FanartsController < ApplicationController
   private
 
   def fanart_params
-    params.permit(:title, :image, :description, :series, :user_id)
+    params.permit(:title, :image, :description, :series)
   end
 end

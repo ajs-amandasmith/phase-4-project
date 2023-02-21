@@ -8,6 +8,13 @@
 
 puts "🌱 Seeding data..."
 
+User.destroy_all
+Fanart.destroy_all
+Comment.destroy_all
+ActiveRecord::Base.connection.reset_pk_sequence!('users')
+ActiveRecord::Base.connection.reset_pk_sequence!('fanarts')
+ActiveRecord::Base.connection.reset_pk_sequence!('comments')
+
 10.times do
   user = User.create(
     username: Faker::Name.name,
@@ -15,24 +22,25 @@ puts "🌱 Seeding data..."
     nickname: Faker::FunnyName.name,
     image_url: Faker::Avatar.image
   )
+end
 
-  rand(1..5).times do
-    fanart = Fanart.create(
-      title: Faker::Lorem.word,
-      image: Faker::LoremFlickr.image,
-      description: Faker::Lorem.paragraph,
-      series: Faker::Lorem.word,
-      user_id: user.id
+10.times do
+  fanart = Fanart.create(
+    title: Faker::Lorem.word,
+    image: Faker::LoremFlickr.image,
+    description: Faker::Lorem.paragraph,
+    series: Faker::Lorem.word
+  )
+
+  rand(1..2).times do
+    Comment.create(
+      comment: Faker::Lorem.sentence,
+      user_id: rand(1..10),
+      fanart_id:fanart.id
     )
-    rand(1..2).times do
-      Comment.create(
-        comment: Faker::Lorem.sentence,
-        user_id: user.id,
-        fanart_id:fanart.id
-      )
-    end
   end
 end
+
 
 
 puts "✅ Done seeding!"

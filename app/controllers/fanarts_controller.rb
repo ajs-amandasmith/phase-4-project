@@ -11,7 +11,7 @@ class FanartsController < ApplicationController
   end
 
   def create
-    fanart = @current_user.fanarts.create!(fanart_params)
+    fanart = Fanart.create!(fanart_params)
     render json: fanart, status: :created
   end
 

@@ -5,7 +5,7 @@ function MyCommentedFanart() {
   const [myComments, setMyComments] = useState([]);
 
   useEffect(() => {
-    fetch("/my-comments")
+    fetch("/commented-fanart")
       .then(r => r.json())
       .then(comments => setMyComments(comments))
   }, [])

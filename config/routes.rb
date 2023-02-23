@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   get "/me", to: "users#show"
   delete "/logout", to: "sessions#destroy"
-  get "/my-comments", to: "users#comments"
+  get "/commented-fanart", to: "users#fanarts"
 
   get '*patch',
       to: 'fallback#index',

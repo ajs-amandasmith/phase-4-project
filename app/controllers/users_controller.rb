@@ -15,8 +15,8 @@ class UsersController < ApplicationController
     render json: @current_user
   end
 
-  def comments
-    render json: @current_user.commented_fanart
+  def fanarts
+    render json: @current_user.fanarts
   end
 
   def destroy
